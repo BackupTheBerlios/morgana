@@ -1,7 +1,7 @@
 #ifndef IPC_SOCKET_H
 #define IPC_SOCKET_H
 /*#*************************************************************************
- ** Socket abstraction $Revision: 1.3 $
+ ** Socket abstraction $Revision: 1.4 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -9,6 +9,9 @@
  ** History:
  **
  ** $Log: socket.h,v $
+ ** Revision 1.4  2000/10/31 15:04:19  pandur
+ ** more of few
+ **
  ** Revision 1.3  2000/10/29 14:37:10  pandur
  ** handler moves into connection <-> everything is an object
  **
@@ -27,6 +30,10 @@
 
 /**
   @short Socket abstraction class
+  @internal
+  
+  This is an internal class. Used to communicate via INET-connections. Every
+  IConnection-instance may have several sockets.
 */
 class ISocket:public QObject{
         Q_OBJECT

@@ -1,5 +1,5 @@
 /*#*************************************************************************
- ** Connection to peers $Revision: 1.2 $
+ ** Connection to peers $Revision: 1.3 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -7,6 +7,9 @@
  ** History:
  **
  ** $Log: connection.h,v $
+ ** Revision 1.3  2000/10/31 15:04:19  pandur
+ ** more of few
+ **
  ** Revision 1.2  2000/10/29 14:37:10  pandur
  ** handler moves into connection <-> everything is an object
  **
@@ -19,7 +22,7 @@
 #include <qobject.h>
 
 class ISocket;
-class IHandler;
+class IServer;
 
 /**
   @short Connection to peers
@@ -36,6 +39,10 @@ class IConnection:public QObject{
         
         
         private:
-          QList<ISocket>socks;
-          QList<IHandler>handler;
+          /**data socket*/
+          ISocket *dsoc;
+          /**control socket*/
+          ISocket *ctlsock;
+          /**temporary server socket*/
+          IServer *server;
 };

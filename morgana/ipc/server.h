@@ -2,12 +2,15 @@
 #define IPC_SERVER_H
 
 /*#***********************************************************************
- ** Server Class for IPC $Revision: 1.1 $
+ ** Server Class for IPC $Revision: 1.2 $
  *************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
  *************************************************************************
  ** $Log: server.h,v $
+ ** Revision 1.2  2000/10/31 15:04:19  pandur
+ ** more of few
+ **
  ** Revision 1.1  2000/10/29 14:39:19  pandur
  ** *** empty log message ***
  **
@@ -15,10 +18,10 @@
 
 #include <qobject.h>
 #include <internal/types.h>
+#include <qstring.h>
 
 class IConnection;
 class QSocketNotifier;
-class QString;
 
 /**
   @short Server Socket abstraction
@@ -38,6 +41,11 @@ class IServer:public QObject{
           const char*interfaceName();
           uint32 port();
           
+          const QString& error();
+          
+        private slots:
+          void accept();
+          
         signals:
           void newConnection(IConnection*);
           void error(const QString&);
@@ -45,6 +53,7 @@ class IServer:public QObject{
           
         private:
           int fd;
+          QString Error;
           QSocketNotifier*sn;
 };
 
