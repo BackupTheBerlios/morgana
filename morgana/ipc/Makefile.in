@@ -2,7 +2,7 @@
 
 VERSION = @VERSION@
 PACKAGE = @PACKAGE@
-REVISION= $Revision: 1.1 $
+REVISION= $Revision: 1.2 $
 
 QTDIR	= @QTDIR@
 
@@ -60,8 +60,8 @@ maintainer-clean cvsclean: mostlyclean
 	rm -rf configure
 
 kdoc: $(shell echo *.h)
-	kdoc -f html -d ../doc/classes/ipc -lmgui -lmserver -lsnnsserver \
-		-lqt -n mipc *.h
+	kdoc -f html -p -d ../doc/classes/ipc -lmgui -lmserver \
+	-lsnnsserver -lqt -n mipc *.h
 
 cvsstatus:
 	cvs status *.h *.cpp *.in *.m4 2>&1 \

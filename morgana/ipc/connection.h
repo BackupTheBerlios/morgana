@@ -1,5 +1,7 @@
+#ifndef IPC_CONNECTION_H
+#define IPC_CONNECTION_H
 /*#*************************************************************************
- ** Connection to peers $Revision: 1.4 $
+ ** Connection to peers $Revision: 1.5 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -7,6 +9,9 @@
  ** History:
  **
  ** $Log: connection.h,v $
+ ** Revision 1.5  2000/11/25 15:23:35  pandur
+ ** orb added, some new code
+ **
  ** Revision 1.4  2000/11/05 07:21:11  pandur
  ** implemented server socket
  **
@@ -33,21 +38,31 @@ class IServer;
   This class implements virtual connections to other processes. It is the
   interface seen by the application.
 */
-class IConnection:public QObject{
+class IConnection:public QObject
+{
         Q_OBJECT
         
         public:
           IConnection();
           /**called by IServer*/
-          IConnection(int);
+          IConnection(int fd);
           ~IConnection();
         
+	  bool rconnect(const QString&rsignal,QObject*lobj,char*lslot);
+	  bool rconnect(QObject*lobj,char*lsignal,const QString&rslot);
+	  
+	  QStringList objectsin(QString);
+          QStringList signalsof(QString);
+          QStringList slotsof(QString);
         
         private:
           /**data socket*/
           ISocket *dsoc;
-          /**control socket*/
+          /**control socket ?needed?*/
           ISocket *ctlsock;
           /**temporary server socket*/
           IServer *server;
 };
+
+
+#endif //IPC_CONNECTION_H

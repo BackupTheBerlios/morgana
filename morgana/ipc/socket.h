@@ -1,7 +1,7 @@
 #ifndef IPC_SOCKET_H
 #define IPC_SOCKET_H
 /*#*************************************************************************
- ** Socket abstraction $Revision: 1.4 $
+ ** Socket abstraction $Revision: 1.5 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -9,6 +9,9 @@
  ** History:
  **
  ** $Log: socket.h,v $
+ ** Revision 1.5  2000/11/25 15:23:35  pandur
+ ** orb added, some new code
+ **
  ** Revision 1.4  2000/10/31 15:04:19  pandur
  ** more of few
  **
@@ -46,18 +49,27 @@ class ISocket:public QObject{
           ISocket(int fd,Mode mode=Control);
           /** attaches to an interface/port */
           ISocket(const char*ifc,uint32 port=0,ConMode cmode=IPv4,Mode mode=Control);
-        
+          
+          /**Closes and deconstructs the socket*/
           ~ISocket();
           
+          /**reads size bytes from the socket, if exact ist true it returns
+          data only if enough is available, elsewise it doesn't return anything*/
           ssize_t read(void*buf,size_t size,bool exact=true);
-          bool readable();
+          /**true if at least size bytes are available*/
+          bool readable(size_t size=1);
+          /**true if the socket can receive data*/
           bool writeable();
           
           enum Side{None,Read,Write,Both};
+          /**closes one or both halfes of the socket, according to which*/
           void halfclose(Side which=Write);
+          /**equivalent to halfclose(Both), closes both sides of the socket*/
           void close();
           
+          /**sets the maximum buffer for reading, default is 1k*/
           bool setReadBuffer(int);
+          /**sets the maximum buffer for writing, default is 1k*/
           bool setWriteBuffer(int);
           
           int readBuffer();
