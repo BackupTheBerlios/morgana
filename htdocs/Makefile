@@ -25,5 +25,4 @@ co:
 upload: update
 	cvs -z3 commit -m ""
 	ssh -l pandur shell1.sourceforge.net \
-	 "cd /home/groups/morgana ; \
-	  cvs -dpandur@cvs1:/cvsroot/morgana co htdocs"
+	 /home/users/pandur/homepage.sh
