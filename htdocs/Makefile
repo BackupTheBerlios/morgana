@@ -1,0 +1,29 @@
+#########################################################
+#### makefile to process Morgana's homepage
+#########################################################
+
+all:
+	@echo "Specify either clean, upload, update or checkout."
+
+CVS_RSH=ssh
+CVSROOT=pandur@cvs.morgana.sourceforge.net:/cvsroot/morgana
+export
+
+.PHONY: all clean upload update co
+
+clean:
+	rm -rf `find . -name '*.bak'` `find . -name '*~'`
+
+update:
+	cvs update
+
+checkout: co
+
+co:
+	cd ..; cvs co htdocs
+
+upload: update
+	cvs commit -m ""
+	ssh -l pandur morgana.sourceforge.net \
+	 "cd /home/groups/morgana ; \
+	  cvs -dpandur@cvs1:/cvsroot/morgana co htdocs"
