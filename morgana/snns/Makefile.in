@@ -1,0 +1,70 @@
+# Makefile for SNNS-Server for Morgana
+
+VERSION = @VERSION@
+PACKAGE = @PACKAGE@
+REVISION= $Revision: 1.1 $
+
+QTDIR	= @QTDIR@
+
+###########
+# uncomment to get debugging
+DEBUG	= -DMDEBUG
+# DEBUG	=
+
+CXX	= @CXX@
+CXXFLAGS= $(DEBUG) -DVERSION=\"$(VERSION)\" -I$(QTDIR)/include -I../include -g @CXXFLAGS@
+
+AR	= @AR@
+RANLIB	= @RANLIB@
+
+MOC	= $(QTDIR)/bin/moc
+
+###############################################
+all: snns-serv
+
+include .depend
+
+.SUFFIXES:
+
+.PRECIOUS: %.o %.qo %.a moc_%.cpp
+
+OBJECTS	= main.qo chat.o netset.o netget.o
+
+snns-serv: $(OBJECTS)
+	$(CXX) -L$(QTDIR)/lib -L/usr/X11R6/lib -L../lib $^ -lsnns -lsnns2 -lfl -lipc -lqt -lX11 -lXext -lm -o $@
+
+%.qo: moc_%.o %.o
+	$(LD) -Ur $^ -o $@
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+moc_%.cpp: %.h
+	$(MOC) $< -o $@
+
+.PHONY: mostlyclean cvsstatus dep
+
+mostlyclean:
+	rm -rf *.bak *~ *.o *.a moc_* *.qo snnsk
+
+clean: mostlyclean
+	rm -f snns-serv
+
+maintainer-clean cvsclean: mostlyclean
+	rm -rf config.{log,h,cache,status} conftest* Makefile
+	rm -rf configure
+
+kdoc: $(shell echo *.h)
+	kdoc -f html -d ../doc/classes/snns -lmgui -lmipc -lqt -n snnsserver -p $^
+
+dep:
+	rm -f .depend
+	for i in *.cpp ; do \
+		echo -n "Processing $$i ..." ; \
+		$(CXX) $(CXXFLAGS) -M $$i >>.depend 2>/dev/null ; \
+		echo done ; \
+	done
+
+.depend:
+	touch $@
+

@@ -1,0 +1,80 @@
+# Makefile for Morgana
+
+VERSION = @VERSION@
+PACKAGE = @PACKAGE@
+REVISION= $Revision: 1.1 $
+
+QTDIR	= @QTDIR@
+
+PREFIX	= @PREFIX@
+
+###############################################
+all: ipc server gui @MAKE_SNNS@
+
+install: server-install gui-install @MAKE_SNNS@-install
+
+ipc:
+	cd ipc ; $(MAKE) install
+
+server:
+	cd server ; $(MAKE)
+
+gui:
+	cd gui ; $(MAKE)
+
+snns:
+	cd snns ; $(MAKE)
+
+server-install:
+	cd server ; $(MAKE) install
+
+gui-install:
+	cd gui ; $(MAKE) install
+
+snns-install:
+	cd snns ; $(MAKE) install
+
+start:
+	export LD_LIBRARY_PATH=$(QTDIR)/lib ;\
+	cd gui ;\
+	./morgana -nograb
+
+.PHONY: mostlyclean kdoc start ipc server gui snns \
+	install server-install gui-install snns-install
+
+mostlyclean:
+	rm -rf *.bak *~ *.o *.a moc_* *.qo
+	cd ipc; $(MAKE) mostlyclean
+	cd gui; $(MAKE) mostlyclean
+	cd server; $(MAKE) mostlyclean
+	cd snns; $(MAKE) mostlyclean
+
+clean: mostlyclean
+	cd intl ; $(MAKE) clean
+	cd po ; $(MAKE) clean
+	cd gui ; $(MAKE) clean
+	cd ipc ; $(MAKE) clean
+	cd server ; $(MAKE) clean
+	cd snns ; $(MAKE) clean
+	cd include ; $(MAKE) clean
+	rm -rf lib/*
+
+maintainer-clean cvsclean: clean
+	cd ipc ; $(MAKE) maintainer-clean
+	cd gui ; $(MAKE) maintainer-clean
+	cd server ; $(MAKE) maintainer-clean
+	cd snns ; $(MAKE) maintainer-clean
+	cd include ; $(MAKE) maintainer-clean
+	rm -rf config.{log,h,cache,status} conftest* Makefile
+	rm -rf configure
+	rm -rf doc/classes/{gui,ipc,server,snns}/*
+	rm -rf doc/*~ doc/*.bak doc/online/*.~ doc/online/*.bak
+
+kdoc:
+	cd ipc ; $(MAKE) kdoc
+	cd gui ; $(MAKE) kdoc
+	cd server ; $(MAKE) kdoc
+	cd snns ; $(MAKE) kdoc
+
+po:
+	$(GETTEXT) -C --keyword=i18n --foreign-user $^ -o $@

@@ -1,0 +1,51 @@
+<html>
+<title>POSIX Interface</title>
+<body>
+<h1>POSIX Interface - Abstraction Headers</h1>
+
+These headers are included via<br>
+<tt>#include &lt;posix/<i>name.h</i>&gt;</tt>
+<p>
+
+<table frame="1" border="1">
+
+<tr><td rowspan="2"><b>Name<br>(<i>includes</i>)</b>
+ <td><b>Description</b>
+ <tr><td><b>provided Interface (<tt>Functions/Variables</tt> and 
+     <tt><i>Constants</i></tt>) </b>
+
+
+<tr><td rowspan="2">file.h
+ <td>File access and manipulation routines and necessary constants
+ <tr><td><tt>open, close, write, read, fcntl, ioctl, errno<br><i>
+     O_RDONLY, O_CREAT, ...; EFAULT, EINVAL, ...</i></tt>
+     
+<tr><td rowspan="2">socket.h<br>(<i>file.h</i>)
+ <td>generic Socket Interface
+ <tr><td><tt>socket, connect, bind, listen, accept<br>
+     <i>AF_LOCAL, AF_INET, ...</i></tt>
+     
+<tr><td rowspan="2">inet.h<br>(<i>file.h</i>)<br>(<i>socket.h</i>)
+ <td>Internet (IPv4) access
+ <tr><td><tt>gethostbyname, htons, htonl, ...</tt>
+ 
+<tr><td rowspan="2">memory.h
+ <td>ANSI-C Memory allocation and manipulation routines
+ <tr><td><tt>malloc, realloc, free, memcpy</tt>
+ 
+<tr><td rowspan="2">string.h
+ <td>ANSI-C Strings
+ <tr><td><tt>strlen, strcpy, strcmp, ...</tt>
+ 
+<tr><td rowspan="2">signal.h
+ <td>POSIX signals
+ <tr><td><tt>signal, sigaction, kill<br><i>SIGxxx</i></tt>
+
+<tr><td rowspan="2">process.h<br>(<i>signal.h</i>)
+ <td>POSIX processes (threads will follow later)
+ <tr><td><tt>fork, exec* (later: pthread_*)</tt>
+ 
+</table>
+
+<hr>
+&copy; Konrad Rosenbaum, 2000<br>protected by the GNU GPL v.2

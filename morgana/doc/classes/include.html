@@ -1,0 +1,30 @@
+<html>
+<title>Global Interface</title>
+<body>
+<h1>Global Interface - Abstraction Headers</h1>
+
+These headers are included via<br>
+<tt>#include &lt;internal/<i>name</i>.h&gt;</tt>
+<p>
+
+<table frame="1" border="1">
+
+<tr><td rowspan="2"><b>Name<br>(<i>includes</i>)</b>
+ <td><b>Description</b>
+ <tr><td><b>provided Interface (<tt>Functions/Variables</tt> and 
+     <tt><i>Constants</i></tt>) </b>
+
+
+<tr><td rowspan="2">int64.h
+ <td>64bit integer simulation, yet not functional
+ <tr><td><tt>uint64, sint64</tt>
+     
+<tr><td rowspan="2">types.h<br>(<i>file.h</i>)
+ <td>generic types and byte swabbing<br>(<i>int64.h</i>)
+ <tr><td><tt>SWAB{8|16|32|64}<br>
+     <i>[us]int{8|16|32|64}, bool</i></tt>
+ 
+</table>
+
+<hr>
+&copy; Konrad Rosenbaum, 2000<br>protected by the GNU GPL v.2

@@ -1,0 +1,15 @@
+gui/2dentity.cpp
+gui/2dwidget.cpp
+gui/chat.cpp
+gui/connection.cpp
+gui/controlcenter.cpp
+gui/display.cpp
+gui/entity.cpp
+gui/helpmenu.cpp
+gui/helpwin.cpp
+gui/main.cpp
+gui/session.cpp
+server/chat.cpp
+server/main.cpp
+server/netset.cpp
+server/tc.cpp

@@ -1,0 +1,17 @@
+all: ipc
+
+ipc:
+	ln -sf ../ipc .
+
+.PHONY: mostlyclean clean maintainer-clean
+
+install:
+
+mostlyclean:
+	rm -rf *.bak *~ internal/*.bak internal/*~ posix/*.bak posix/*~
+
+clean: mostlyclean
+	rm -rf config.h
+
+maintainer-clean: clean
+	rm -rf ipc

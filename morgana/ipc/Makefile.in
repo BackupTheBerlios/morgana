@@ -1,0 +1,80 @@
+# Makefile for Dragon IPC
+
+VERSION = @VERSION@
+PACKAGE = @PACKAGE@
+REVISION= $Revision: 1.1 $
+
+QTDIR	= @QTDIR@
+
+# uncomment to enable debugging
+# DEBUG	= -DMDEBUG
+DEBUG	=
+
+CXX	= @CXX@
+CXXFLAGS= $(DEBUG) -DVERSION=\"$(VERSION)\" -I$(QTDIR)/include -I../include -g @CXXFLAGS@
+
+AR	= @AR@
+RANLIB	= @RANLIB@
+
+MOC	= $(QTDIR)/bin/moc
+
+###############################################
+all: ipc.a
+
+.SUFFIXES:
+
+.PRECIOUS: %.o %.qo %.a moc_%.cpp
+
+OBJECTS	= connection.qo listener.qo package.qo \
+	client.qo server.qo
+HEADERS = connection.h listener.h package.h \
+	client.h server.h
+
+install: all
+	cp -p ipc.a ../lib/libipc.a
+	cp -p $(HEADERS) ../include/ipc
+
+ipc.a: $(OBJECTS)
+	$(AR) $@ $^
+	$(RANLIB) $@
+
+%.qo: moc_%.o %.o
+	$(LD) -Ur $^ -o $@
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+moc_%.cpp: %.h
+	$(MOC) $< -o $@
+
+.PHONY: mostlyclean cvsstatus
+
+mostlyclean:
+	rm -rf *.bak *~ *.o *.a moc_* *.qo
+
+clean: mostlyclean
+	rm -f ipc.a
+
+maintainer-clean cvsclean: mostlyclean
+	rm -rf config.{log,h,cache,status} conftest* Makefile
+	rm -rf configure
+
+kdoc: $(shell echo *.h)
+	kdoc -f html -d ../doc/classes/ipc -lmgui -lmserver -lsnnsserver \
+		-lqt -n mipc *.h
+
+cvsstatus:
+	cvs status *.h *.cpp *.in *.m4 2>&1 \
+	|grep Status|less
+
+dep:
+	rm -f .depend
+	for i in *.cpp ; do \
+		echo -n "Processing $$i ..." ; \
+		$(CXX) $(CXXFLAGS) -M $$i >>.depend 2>/dev/null ; \
+		echo done ; \
+	done
+
+.depend:
+	touch $@
+

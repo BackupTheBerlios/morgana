@@ -1,0 +1,72 @@
+/* include/config.h.in.  Generated automatically from configure.in by autoheader.  */
+
+/* Define to `unsigned' if <sys/types.h> doesn't define.  */
+#undef size_t
+
+/* Define if you have the ANSI C header files.  */
+#undef STDC_HEADERS
+
+/* Define if your processor stores words with the most significant
+   byte first (like Motorola and SPARC, unlike Intel and VAX).  */
+#undef WORDS_BIGENDIAN
+
+/* package name */
+#undef PACKAGE
+
+/* package version */
+#undef VERSION
+
+/* The number of bytes in a bool.  */
+#undef SIZEOF_BOOL
+
+/* The number of bytes in a char.  */
+#undef SIZEOF_CHAR
+
+/* The number of bytes in a double.  */
+#undef SIZEOF_DOUBLE
+
+/* The number of bytes in a float.  */
+#undef SIZEOF_FLOAT
+
+/* The number of bytes in a int.  */
+#undef SIZEOF_INT
+
+/* The number of bytes in a long.  */
+#undef SIZEOF_LONG
+
+/* The number of bytes in a long double.  */
+#undef SIZEOF_LONG_DOUBLE
+
+/* The number of bytes in a long long.  */
+#undef SIZEOF_LONG_LONG
+
+/* The number of bytes in a short.  */
+#undef SIZEOF_SHORT
+
+/* Define if you have the <malloc.h> header file.  */
+#undef HAVE_MALLOC_H
+
+/* Define if you have the <memory.h> header file.  */
+#undef HAVE_MEMORY_H
+
+/* Define if you have the <sys/socket.h> header file.  */
+#undef HAVE_SYS_SOCKET_H
+
+/* Define if you have the <unistd.h> header file.  */
+#undef HAVE_UNISTD_H
+
+/* Defines socklen_t if necessary to int */
+#undef socklen_t
+
+/* Defines the file you find socklen_t in */
+#undef SOCKLEN_T_IN
+
+/* Define this if you have socklen_t */
+#undef HAVE_SOCKLEN_T
+
+/* Define this if floats behave IEEE standard conformant */
+#undef HAVE_IEEE_FLOAT
+
+/* Define this if your compiler knows named return values (as EGCS does) */
+#undef HAVE_NAMEDRETURN
+

@@ -1,0 +1,45 @@
+all: mserver
+
+include .depend
+
+mserver:
+
+%.qo: moc_%.o %.o      
+	$(LD) -Ur $^ -o $@
+        
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+        
+moc_%.cpp: %.h
+	$(MOC) $< -o $@   
+
+
+
+.PHONY: install mostlyclean clean maintainer-clean dep
+
+install:
+
+
+mostlyclean:
+	rm -rf *.bak *~ *.o *.qo *.a moc_* *.ESV core
+
+clean: mostlyclean
+
+maintainer-clean: clean
+	rm Makefile
+
+kdoc: $(shell echo *.h)
+	kdoc -f html -d ../doc/classes/gui -n mserver -lmgui \
+		-lsnnsserver -lmipc -lqt -p *.h
+
+dep:
+	rm -f .depend
+	for i in *.cpp ; do \
+		echo -n "Processing $$i ..." ; \
+		$(CXX) $(CXXFLAGS) -M $$i >>.depend  2>/dev/null ; \
+		echo done ; \
+	done
+
+.depend:
+	touch $@
+

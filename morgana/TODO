@@ -1,0 +1,45 @@
+TODO File for the Morgana Project
+=================================
+
+
+IPC
+--------
+
+*!!remote signals!!
+*local connection (AF_UNIX)
+*Shared Mem, Semaphores, other connection types
+*typisized packages (creating structures/arrays)
+*data streams
+*security fixes:
+ - memory allocation restrictions
+ - line reset functionality
+ - ECC
+ - nonblocking transfers
+
+gui
+------
+
+*network loading/saving
+*control center
+*pattern editor
+*Chart/diagram window
+*i18n support
+
+*and much much more
+
+
+server (SNNS)
+--------------
+
+*redesign with remote signals
+
+server (Morgana)
+----------------
+
+*whole beast (yet a dummy would suffice)
+
+project internal docu/MetaProject
+----------------------------------
+
+*more sourcedocu
+*open tasks docu
