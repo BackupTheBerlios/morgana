@@ -1,7 +1,7 @@
 #ifndef IPC_SOCKET_H
 #define IPC_SOCKET_H
 /*#*************************************************************************
- ** Socket abstraction $Revision: 1.6 $
+ ** Socket abstraction $Revision: 1.7 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -9,6 +9,9 @@
  ** History:
  **
  ** $Log: socket.h,v $
+ ** Revision 1.7  2001/08/30 18:04:59  pandur
+ ** *** empty log message ***
+ **
  ** Revision 1.6  2000/11/26 12:06:03  pandur
  ** *added socket.cpp
  **
@@ -92,7 +95,7 @@ class ISocket:public QObject{
           /**internal slot for async mode*/
           void readable();
           /**internal slot for async mode*/
-          void writeable();
+          void writeableslot();
           
         signals:
           /**thrown whenever errors occur*/
@@ -120,7 +123,7 @@ class ISocket:public QObject{
           /**implemented for the case we use package mode*/
           void disconnectNotify(const char*);
           /**counts connections for package mode*/
-          int pmodecnt=0;
+          int pmodecnt;
 };
 
 

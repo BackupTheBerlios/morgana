@@ -28,7 +28,7 @@ done
 ac_given_srcdir=.
 ac_given_INSTALL="/usr/bin/install -c"
 
-trap 'rm -fr Makefile ipc/Makefile gui/Makefile snns/Makefile server/Makefile intl/Makefile po/Makefile.in include/config.h conftest*; exit 1' 1 2 15
+trap 'rm -fr Makefile ipc/Makefile gui/Makefile snns/Makefile server/Makefile  intl/Makefile po/Makefile.in include/Makefile include/config.h conftest*; exit 1' 1 2 15
 
 # Protect against being on the right side of a sed subst in config.status.
 sed 's/%@/@@/; s/@%/@@/; s/%g$/@g/; /@g$/s/[\\&%]/\\&/g;
@@ -76,10 +76,9 @@ s%@build_cpu@%i586%g
 s%@build_vendor@%pc%g
 s%@build_os@%linux-gnu%g
 s%@AR@%ar -rc%g
-s%@QTDIR@%/usr/local/qt%g
+s%@QTDIR@%/usr/qt%g
 s%@CXXCPP@%c++ -E%g
 s%@MAKE_SNNS@%%g
-s%@MAKE_SNNSI@%%g
 
 CEOF
 
@@ -115,7 +114,7 @@ if test -z "$ac_sed_cmds"; then
   ac_sed_cmds=cat
 fi
 
-CONFIG_FILES=${CONFIG_FILES-"Makefile ipc/Makefile gui/Makefile snns/Makefile server/Makefile intl/Makefile po/Makefile.in"}
+CONFIG_FILES=${CONFIG_FILES-"Makefile ipc/Makefile gui/Makefile snns/Makefile server/Makefile  intl/Makefile po/Makefile.in include/Makefile"}
 for ac_file in .. $CONFIG_FILES; do if test "x$ac_file" != x..; then
   # Support "outfile[:infile[:infile...]]", defaulting infile="outfile.in".
   case "$ac_file" in

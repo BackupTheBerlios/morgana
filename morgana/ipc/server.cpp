@@ -1,10 +1,13 @@
 /*#***********************************************************************
- ** Server Class for IPC $Revision: 1.2 $
+ ** Server Class for IPC $Revision: 1.3 $
  *************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
  *************************************************************************
  ** $Log: server.cpp,v $
+ ** Revision 1.3  2001/08/30 18:04:59  pandur
+ ** *** empty log message ***
+ **
  ** Revision 1.2  2000/11/05 07:21:11  pandur
  ** implemented server socket
  **
@@ -16,6 +19,7 @@
 #include "server.h"
 #include "debug.h"
 #include "connection.h"
+#include "socket.h"
 #include <posix/socket.h>
 #include <qsocketnotifier.h>
 #include <stdio.h>
@@ -129,7 +133,7 @@ uint32 IServer::port()
 void IServer::accept()
 {
         int nfd=::accept(fd,0,0);
-        if(nfd>=0)newConnection(new IConnection(nfd));
+        if(nfd>=0)newConnection(new IConnection(new ISocket(nfd)));
         else {
                 ierrno=errno;
                 error(ierrno);

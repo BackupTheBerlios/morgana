@@ -1,7 +1,7 @@
 #ifndef IPC_ORB_H
 #define IPC_ORB_H
 /*#*************************************************************************
- ** local ORB $Revision: 1.1 $
+ ** local ORB $Revision: 1.2 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -9,12 +9,19 @@
  ** History:
  **
  ** $Log: orb.h,v $
+ ** Revision 1.2  2001/08/30 18:04:59  pandur
+ ** *** empty log message ***
+ **
  ** Revision 1.1  2000/11/25 15:23:35  pandur
  ** orb added, some new code
  **
  ***************************************************************************/
 
 #include <qobject.h>
+#include <qdict.h>
+
+#include <posix/memory.h>
+#include <internal/types.h>
 
 //optimize code size for GNU C 2.9x
 #if __GNUC__ == 2
@@ -23,7 +30,6 @@
 
 
 
-class QDict<T>;
 /**
    @short ORB of Morgana's IPC
    
@@ -45,19 +51,20 @@ class IORB
 	  
 	  static bool registerMethod(const QString&rmeth,QObject*lobj,char*method);
 	  static bool unregisterMethod(const QString&rmeth);
-	  static bool registerObject(const QString&obj,QObject*obj=0,bool allowothers=true);
+	  static bool registerObject(const QString&robj,QObject*obj=0,bool allowothers=true);
 	
 	private:
           /**used by the ORB itself to instantiate the global one*/
 	  IORB(bool);
+          static void ginit();
           /**Am I the one? The real one?*/
-	  bool isstatic=false;
+	  bool isstatic;
           /**The one.*/
-	  static IORB orb(true);
+	  static IORB *orb;
           /**List of Objects*/
-	  static QDict<void> *loo=0;
+	  static QDict<void> *loo;
           /**List of Methods*/
-	  static QDict<void> *lom=0;
+	  static QDict<void> *lom;
 };
 
 class IRemote;
@@ -101,40 +108,40 @@ class IRemote
 	  IRemote& operator<<(uint8 i)
 	  {
 	      alloc(1);
-	      memcpy(buffer+bpos++,&i,1);
+	      memcpy(((char*)buffer)+bpos++,&i,1);
 	      return *this;
 	  }
 	  IRemote& operator<<(uint16 i)
 	  {
 	      alloc(1);
-	      memcpy(buffer+bpos,&i,2);bpos+=2;
+	      memcpy(((char*)buffer)+bpos,&i,2);bpos+=2;
 	      return *this;
 	  }
 	  IRemote& operator<<(uint32 i)
 	  {
 	      alloc(1);
-	      memcpy(buffer+bpos,&i,4);bpos+=4;
+	      memcpy(((char*)buffer)+bpos,&i,4);bpos+=4;
 	      return *this;
 	  }
 
 	  IRemote& operator<<(sint8 i)
 	  {
 	      alloc(1);
-	      memcpy(buffer+bpos++,&i,1);
+	      memcpy(((char*)buffer)+bpos++,&i,1);
 	      return *this;
 	  }
 
 	  IRemote& operator<<(sint16 i)
 	  {
 	      alloc(1);
-	      memcpy(buffer+bpos,&i,2);bpos+=2;
+	      memcpy(((char*)buffer)+bpos,&i,2);bpos+=2;
 	      return *this;
 	  }
 
 	  IRemote& operator<<(sint32 i)
 	  {
 	      alloc(1);
-	      memcpy(buffer+bpos,&i,4);bpos+=4;
+	      memcpy(((char*)buffer)+bpos,&i,4);bpos+=4;
 	      return *this;
 	  }
 
@@ -145,13 +152,13 @@ class IRemote
                   if(cs.isNull()){
                           len=0xffffffff;
                           alloc(4);
-                          memcpy(buffer+bpos,&len,4);
+                          memcpy(((char*)buffer)+bpos,&len,4);
                           bpos+=4;
                   }else{
                           len=cs.length();
                           alloc(4+len);
-                          memcpy(buffer+bpos,&len,4);
-                          memcpy(buffer+bpos,(const char*)cs,len);
+                          memcpy(((char*)buffer)+bpos,&len,4);
+                          memcpy(((char*)buffer)+bpos+4,(const char*)cs,len);
                           bpos+=4+len;
                           
                   }
@@ -165,8 +172,8 @@ class IRemote
 	  
 	  IRemote& operator<<(bool b)
 	  {
-	      alloc(1);uint8 i=b?0xff:0
-	      memcpy(buffer+bpos++,&i,1);
+	      alloc(1);uint8 i=b?0xff:0;
+	      memcpy(((char*)buffer)+bpos++,&i,1);
 	      return *this;
 	  }
 
@@ -240,13 +247,14 @@ class IRemote
                   if((bpos+len)>blen)return *this;
                   s=QString::fromUtf8((const char*)buffer,len);
                   bpos+=len;
+                  return *this;
           }
           
 	  IRemote& operator>>(bool&b)
           {
                   if((bpos+1)<blen){
                           uint8 i,j=0;
-                          memcpy(i,buffer,1);
+                          memcpy(&i,buffer,1);
                           bpos++;
                           //count the bits:
                           for(int k=0;k<8;k++)
@@ -278,12 +286,11 @@ class IRemote
 	  IRemote(int){blen=bpos=0;buffer=0;}
 	  
 	  void*buffer;
-	  int blen,bpos;
-#warning IRemote needs error handling for alloc
- 	  bool alloc(int inc)
+	  uint32 blen,bpos;
+ 	  bool alloc(uint32 inc)
 	  {
 	          register void *b;
-		  register int l=blen;
+		  register uint32 l=blen;
 		  inc+=bpos;
 	          if(blen<inc){
 		          while(l<inc)l+=16;
@@ -310,7 +317,7 @@ class IBuffer:public ISerializable
                   memcpy(buf,b,sz);
           }
           
-          ~IBuffer(){free(buf);}
+          virtual ~IBuffer(){free(buf);}
           
           void set(const void*b)
           {
@@ -328,7 +335,7 @@ class IBuffer:public ISerializable
           {
                   r<<sz;
                   r.alloc(sz);
-                  memcpy(r.buffer+r.bpos,buf,sz);
+                  memcpy(((char*)(r.buffer))+r.bpos,buf,sz);
                   r.bpos+=sz;
           }
           
@@ -337,7 +344,7 @@ class IBuffer:public ISerializable
                   r>>sz;
                   free(buf);buf=malloc(sz);
                   if((r.bpos+sz)>r.blen)return;
-                  memcpy(buf,r.buffer+r.bpos,sz);
+                  memcpy(buf,((char*)(r.buffer))+r.bpos,sz);
                   r.bpos+=sz;
           }
           

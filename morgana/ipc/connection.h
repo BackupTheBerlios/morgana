@@ -1,7 +1,7 @@
 #ifndef IPC_CONNECTION_H
 #define IPC_CONNECTION_H
 /*#*************************************************************************
- ** Connection to peers $Revision: 1.5 $
+ ** Connection to peers $Revision: 1.6 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -9,6 +9,9 @@
  ** History:
  **
  ** $Log: connection.h,v $
+ ** Revision 1.6  2001/08/30 18:04:59  pandur
+ ** *** empty log message ***
+ **
  ** Revision 1.5  2000/11/25 15:23:35  pandur
  ** orb added, some new code
  **
@@ -43,9 +46,7 @@ class IConnection:public QObject
         Q_OBJECT
         
         public:
-          IConnection();
-          /**called by IServer*/
-          IConnection(int fd);
+          IConnection(ISocket*);
           ~IConnection();
         
 	  bool rconnect(const QString&rsignal,QObject*lobj,char*lslot);
@@ -58,10 +59,10 @@ class IConnection:public QObject
         private:
           /**data socket*/
           ISocket *dsoc;
-          /**control socket ?needed?*/
-          ISocket *ctlsock;
-          /**temporary server socket*/
-          IServer *server;
+          /* *control socket ?needed?*/
+          //ISocket *ctlsock;
+          /* *temporary server socket*/
+          //IServer *server;
 };
 
 
