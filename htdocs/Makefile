@@ -24,5 +24,5 @@ co:
 
 upload: update
 	cvs -z3 commit -m ""
-	ssh -l pandur shell1.sourceforge.net \
+	ssh -t -l pandur shell1.sourceforge.net \
 	 /home/users/pandur/homepage.sh
