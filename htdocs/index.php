@@ -34,7 +34,7 @@ satisfy you.
 <ul>
 <li>My old diploma version of Morgana (running demo-code and German text
  (LaTeX-source of the diploma)) can be found 
- <a href="ftp://ftp.morgana.sourceforge.net/pub/morgana/diploma.tar.bz2">
+ <a href="ftp://morgana.sourceforge.net/pub/morgana/diploma.tar.bz2">
  here</a>.
 </ul>
  
