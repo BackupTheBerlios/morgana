@@ -33,8 +33,8 @@ satisfy you.
 
 <ul>
 <li>My old diploma version of Morgana (running demo-code and German text
- (LaTeX-source of the diploma)) can be found 
- <a href="ftp://morgana.sourceforge.net/pub/morgana/diploma.tar.bz2">
+ (LaTeX-source and PS-files of the diploma)) can be found 
+ <a href="ftp://ftp.berlios.de/pub/morgana/diplom">
  here</a>.
 </ul>
  
@@ -43,47 +43,33 @@ satisfy you.
 <ul>
 <li>Developers and (yet) open discussions list:<br>
 <tt>morgana-devel@lists.sourceforge.net</tt><br>
-(<a href="http://www.geocrawler.com/redir-sf.php3?list=morgana-devel">Archive</a>| 
- <a href="http://lists.sourceforge.net/mailman/listinfo/morgana-devel">Subscription</a>)
+(<a href="http://lists.berlios.de/pipermail/morgana-devel/">Archive</a>| 
+ <a href="http://lists.berlios.de/mailman/listinfo/morgana-devel">Subscription</a>)
 </ul>
 <p>
 
-<h3>Forums</h3>
-
-<ul>
-<li><a href="http://sourceforge.net/forum/forum.php?forum_id=28543"> 
- Open Discussions</a>
-<li><a href="http://sourceforge.net/forum/forum.php?forum_id=28544">
- Help</a>
-<li><a href="http://sourceforge.net/forum/forum.php?forum_id=28545">
- Developer</a>
-</ul>
 
 <h3>CVS</h3> 
 
-<a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi?cvsroot=morgana">
+<a href="http://cvs.berlios.de/cgi-bin/viewcvs.cgi/morgana">
  CVS-Web</a><p>
 
 <i><b>Anonymous-CVS:</b></i><br>
-<tt>cvs -d:pserver:anonymous@cvs.morgana.sourceforge.net:/cvsroot/morgana
-login </tt><br>
-simply press Enter when asked for a password<br>
-<tt>cvs -z3 
--d:pserver:anonymous@cvs.morgana.sourceforge.net:/cvsroot/morgana co
-morgana </tt><p>
+<tt>cvs -d:pserver:anonymous@cvs.morgana.berlios.de:/cvsroot/morgana
+co morgana </tt><p>
 
 <i><b>Developer-CVS</b></i>:<br>
 <tt>export CVS_RSH=ssh <br>
 cvs -z3
--d<i>developername</i>@cvs.morgana.sourceforge.net:/cvsroot/morgana co
+-d<i>developername</i>@cvs.morgana.berlios.de:/cvsroot/morgana co
 <i>modulename</i> </tt><p>
 
 <h3>Project Center</h3>
-<a href="http://sourceforge.net/projects/morgana">click here for Project
+<a href="http://developer.berlios.de/projects/morgana">click here for Project
 Center</a><p>
 
 If you think more ressources may be necessary: 
-<a href="mailto:pandur@users.sourceforge.net">contact me</a>.
+<a href="mailto:konrad.rosenbaum@gmx.net">contact me</a>.
 
 <h2>The name</h2>
 

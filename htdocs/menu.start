@@ -2,10 +2,8 @@
 <tr><td width="15%" bgcolor="lightgrey" valign="top">
 
 Hosted by<br>
-<a href="http://sourceforge.net"> 
-<img src="http://sourceforge.net/sflogo.php?group_id=9169&type=1"
-width="88" height="31" border="0" alt="[SourceForge Logo]">
-</a><p>
+<a href="http://developer.berlios.de"> 
+<img src="http://developer.berlios.de/sflogo.php?group_id=535&type=1" width="124" height="32" border="0" alt="BerliOS Logo"></A> <p>
 
 <b>The Project</b><P>
 
@@ -13,14 +11,14 @@ width="88" height="31" border="0" alt="[SourceForge Logo]">
 
 <p><b>Developers</b><p>
 
-<a href="http://sourceforge.net/projects/morgana">Project Center</a><br>
-<a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi?cvsroot=morgana"> 
+<a href="http://developer.berlios.de/projects/morgana">Project Center</a><br>
+<a href="http://cvs.berlios.de/cgi-bin/viewcvs.cgi/morgana/"> 
  CVS-Web</a><br>
-<a href="http://www.geocrawler.com/redir-sf.php3?list=morgana-devel"> 
+<a href="http://lists.berlios.de/pipermail/morgana-devel"> 
  Mail-Archive (-devel)</a><br>
 
 <p><b>Users</b><p>
 
-<a href="ftp://morgana.sourceforge.net/pub/morgana">FTP</a><p>
+<a href="ftp://ftp.berlios.de/pub/morgana">FTP</a><p>
 
 <td valign="top">
