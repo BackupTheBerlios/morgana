@@ -1,25 +1,92 @@
-Pre-Release README for Morgana
-=================================
+README for Morgana 
+===================
 
+This is an PRE-ALPHA Release!!!
 
-Currently I'm working on cleaning up the source tree and preparing some of
-the sources for further development.
-
-You will find the prototype, which was the ground of my diploma thesis, at
-ftp://morgana.sourceforge.net/pub/morgana/diploma.tar.bz2 
-and some of the new sources at
-ftp://morgana.sourceforge.net/pub/morgana/current.tar.bz2
-Attention: the latter is very much incomplete and not able to run (I
-would even wonder if it compiles).
-
-The things I'll do till I check in may be found in the document manager of
-Morgana in the group "drafts".
-
-
-Target release date: end of september 2000.
-
-
-----
-Konrad Rosenbaum
+written by Konrad Rosenbaum, 2000
 (pandur@users.sourceforge.net)
+
+======================================================================
+======================================================================
+
+IMPORTANT NOTICE
+------------------
+
+The current version of Morgana is _not_ functional. I would even wonder if
+it compiles.
+
+If you want, you may watch me working at the IPC-Layer. As soon as this is
+ready and the demo works again I'll mark that project Alpha and announce
+it whereever appropriate...
+
+Till then you might be interested in the last running prototype:
+ftp://morgana.sourceforge.net/pub/morgana/diploma.tar.bz2
+The text in there is German, so don't wonder too much if you don't
+understand it. It's my diploma thesis. ;-)
+
+======================================================================
+======================================================================
+
+
+What is Morgana
+----------------
+
+Yet Morgana is a project in its first stages of development. Its aim is to
+create a simulator for field of artificial intelligence which can be
+abstracted in a connectionistic model - a so called "connection machine".
+This includes Neural Networks, parts of Fuzzy theory and some
+deterministic (partly iterative) algorithms.
+
+Yet it is "alphaware" so many of the items described in the various
+documentation files won't even be visible, not mentioning working. ;-)
+
+More about the stage of the project can be found on its homepage at
+http://morgana.sourceforge.net .
+
+Copyright
+----------
+
+This Software is protected by the GNU GPL version 2 (or any newer at your
+option). See the file COPYING for details.
+
+
+If you want support for SNNS
+-----------------------------
+
+The copyright of SNNS is very restrictive, so we don't distribute it
+together with Morgana. However our interface can be linked against version
+4.2 of SNNS.
+
+Yet it is not decided whether or when support for SNNS will be dropped.
+
+You may get the sources of SNNS from:
+http://www-ra.informatik.uni-tuebingen.de/SNNS/
+
+Build SNNS and be sure it is installed besides Morgana so that you find:
+...somedir/morgana
+...somedir/SNNS
+
+and configure Morgana with the option --with-SNNS .
+
+Installation
+--------------
+
+see the file INSTALL for details.
+
+User Documentation
+---------------
+
+Morgana Documentation: can be found in doc
+
+SNNS Documentation: can be found on the SNNS-Webpage.
+
+Hacker Documentation
+---------------------
+
+Morgana: 
+*doc and doc/classes
+*look at the document-management on SourceForge
+
+SNNS: look at the SNNS-Webpage or ask your favourite Professor for it (I did
+the second).
 
