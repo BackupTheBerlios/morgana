@@ -31,9 +31,13 @@ satisfy you.
 
 <h2>Accessable Ressources</h2>
 
-<a href="http://www.htw-dresden.de/~htw6966/diplom">Original diploma pages
-(mostly German)</a><p>
-
+<ul>
+<li>My old diploma version of Morgana (running demo-code and German text
+ (LaTeX-source of the diploma)) can be found 
+ <a href="ftp://ftp.morgana.sourceforge.net/pub/morgana/diploma.tar.bz2">
+ here</a>.
+</ul>
+ 
 <h3>Maillists</h3>
 
 <ul>
@@ -60,7 +64,7 @@ satisfy you.
 <a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi?cvsroot=morgana">
  CVS-Web</a><p>
 
-Anonymous:<br>
+<i><b>Anonymous-CVS:</b></i><br>
 <tt>cvs -d:pserver:anonymous@cvs.morgana.sourceforge.net:/cvsroot/morgana
 login </tt><br>
 simply press Enter when asked for a password<br>
@@ -68,7 +72,7 @@ simply press Enter when asked for a password<br>
 -d:pserver:anonymous@cvs.morgana.sourceforge.net:/cvsroot/morgana co
 morgana </tt><p>
 
-Developers:<br>
+<i><b>Developer-CVS</b></i>:<br>
 <tt>export CVS_RSH=ssh <br>
 cvs -z3
 -d<i>developername</i>@cvs.morgana.sourceforge.net:/cvsroot/morgana co
