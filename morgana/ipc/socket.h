@@ -1,7 +1,7 @@
 #ifndef IPC_SOCKET_H
 #define IPC_SOCKET_H
 /*#*************************************************************************
- ** Socket abstraction $Revision: 1.5 $
+ ** Socket abstraction $Revision: 1.6 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -9,6 +9,9 @@
  ** History:
  **
  ** $Log: socket.h,v $
+ ** Revision 1.6  2000/11/26 12:06:03  pandur
+ ** *added socket.cpp
+ **
  ** Revision 1.5  2000/11/25 15:23:35  pandur
  ** orb added, some new code
  **
@@ -31,6 +34,8 @@
 #include <qobject.h>
 #include <internal/types.h>
 
+class QSocketNotifier;
+
 /**
   @short Socket abstraction class
   @internal
@@ -43,12 +48,12 @@ class ISocket:public QObject{
         
         public:
           enum ConMode {IPv4,IPv6,Local};
-          enum Mode {Control,Data};
+          enum Mode {Raw,Control,Data};
         
           /** attaches to an existing socket*/
-          ISocket(int fd,Mode mode=Control);
+          ISocket(int fd,Mode mode=Raw);
           /** attaches to an interface/port */
-          ISocket(const char*ifc,uint32 port=0,ConMode cmode=IPv4,Mode mode=Control);
+          ISocket(const char*ifc,uint32 port=0,ConMode cmode=IPv4,Mode mode=Raw);
           
           /**Closes and deconstructs the socket*/
           ~ISocket();
@@ -72,7 +77,9 @@ class ISocket:public QObject{
           /**sets the maximum buffer for writing, default is 1k*/
           bool setWriteBuffer(int);
           
+          /**returns the size of the read-buffer*/
           int readBuffer();
+          /**returns the size of the write-buffer*/
           int writeBuffer();
           
           enum State{OK=0,LostConnection,NotConnected};
@@ -81,12 +88,39 @@ class ISocket:public QObject{
         public slots:
           void write(const void*buf,size_t size);
           
+        private slots:
+          /**internal slot for async mode*/
+          void readable();
+          /**internal slot for async mode*/
+          void writeable();
+          
         signals:
+          /**thrown whenever errors occur*/
           void error(const QString&);
+          /**async-read: throws out exactly one 128byte package*/
+          void readPackage(void*);
           
         private:
+          /**current state of the socket*/
           State state;
+          /**Mode of operation (unused)*/
+          Mode mode;
+          /**system specific socket descriptor*/
           int sockfd;
+          /**internal buffers*/
+          void*rbuf,*wbuf;
+          /**internal buffer sizes and positions*/
+          int rbsz,wbsz,rbps,wbps;
+          /**async write (yet not used)*/
+          QSocketNotifier *wsn;
+          /**for package reading mode*/
+          QSocketNotifier *rsn;
+          /**implemented for the case we use package mode*/
+          void connectNotify(const char*);
+          /**implemented for the case we use package mode*/
+          void disconnectNotify(const char*);
+          /**counts connections for package mode*/
+          int pmodecnt=0;
 };
 
 
