@@ -22,14 +22,6 @@ controls can be accessed the same way.
 
 <h2>State of the Project</h2>
 
-Morgana startet as my diploma thesis, but soon it will be time to go
-open.<p>
-
-Currently I prepare for the official start of it. [aimed date: 1sep2000]
-This means to clean up and bautify about 8000 lines of code and tons of
-scripts and documentation. As soon as I reached this goal I'll upload the
-sources to the CVS-Server. [aimed date for CVS: mid of august]<p>
-
 In means of functionality: Morgana has much of code and even more drafts
 and design (most of it must yet be written down), but only few
 functionality. If you enjoy moving around blue boxes with black lines
