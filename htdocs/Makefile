@@ -15,7 +15,7 @@ clean:
 	rm -rf `find . -name '*.bak'` `find . -name '*~'`
 
 update:
-	cvs update
+	cvs -z3 update
 
 checkout: co
 
@@ -23,7 +23,7 @@ co:
 	cd ..; cvs co htdocs
 
 upload: update
-	cvs commit -m ""
-	ssh -l pandur morgana.sourceforge.net \
+	cvs -z3 commit -m ""
+	ssh -l pandur shell1.sourceforge.net \
 	 "cd /home/groups/morgana ; \
 	  cvs -dpandur@cvs1:/cvsroot/morgana co htdocs"

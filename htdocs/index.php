@@ -42,20 +42,49 @@ satisfy you.
 <a href="http://www.htw-dresden.de/~htw6966/diplom">Original diploma pages
 (mostly German)</a><p>
 
-Maillists:
+<h3>Maillists</h3>
 
 <ul>
-
 <li>Developers and (yet) open discussions list:<br>
 <tt>morgana-devel@lists.sourceforge.net</tt><br>
 (<a href="http://www.geocrawler.com/redir-sf.php3?list=morgana-devel">Archive</a>| 
- <a href="http://lists.sourceforge.net/mailman/listinfo/morgana-devel">Subscription</a>)<p>
+ <a href="http://lists.sourceforge.net/mailman/listinfo/morgana-devel">Subscription</a>)
+</ul>
+<p>
 
+<h3>Forums</h3>
+
+<ul>
+<li><a href="http://sourceforge.net/forum/forum.php?forum_id=28543"> 
+ Open Discussions</a>
+<li><a href="http://sourceforge.net/forum/forum.php?forum_id=28544">
+ Help</a>
+<li><a href="http://sourceforge.net/forum/forum.php?forum_id=28545">
+ Developer</a>
 </ul>
 
-CVS: yet not established.<p>
+<h3>CVS</h3> 
 
-<a href="http://sourceforge.net/projects/morgana">Project Info</a><p>
+<a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi?cvsroot=morgana">
+ CVS-Web</a><p>
+
+Anonymous:<br>
+<tt>cvs -d:pserver:anonymous@cvs.morgana.sourceforge.net:/cvsroot/morgana
+login </tt><br>
+simply press Enter when asked for a password<br>
+<tt>cvs -z3 
+-d:pserver:anonymous@cvs.morgana.sourceforge.net:/cvsroot/morgana co
+morgana </tt><p>
+
+Developers:<br>
+<tt>export CVS_RSH=ssh <br>
+cvs -z3
+-d<i>developername</i>@cvs.morgana.sourceforge.net:/cvsroot/morgana co
+<i>modulename</i> </tt><p>
+
+<h3>Project Center</h3>
+<a href="http://sourceforge.net/projects/morgana">click here for Project
+Center</a><p>
 
 If you think more ressources may be necessary: 
 <a href="mailto:pandur@users.sourceforge.net">contact me</a>.
