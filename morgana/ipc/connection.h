@@ -1,5 +1,5 @@
 /*#*************************************************************************
- ** Connection to peers $Revision: 1.3 $
+ ** Connection to peers $Revision: 1.4 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -7,6 +7,9 @@
  ** History:
  **
  ** $Log: connection.h,v $
+ ** Revision 1.4  2000/11/05 07:21:11  pandur
+ ** implemented server socket
+ **
  ** Revision 1.3  2000/10/31 15:04:19  pandur
  ** more of few
  **
@@ -35,6 +38,8 @@ class IConnection:public QObject{
         
         public:
           IConnection();
+          /**called by IServer*/
+          IConnection(int);
           ~IConnection();
         
         

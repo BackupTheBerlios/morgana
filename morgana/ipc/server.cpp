@@ -1,10 +1,13 @@
 /*#***********************************************************************
- ** Server Class for IPC $Revision: 1.1 $
+ ** Server Class for IPC $Revision: 1.2 $
  *************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
  *************************************************************************
  ** $Log: server.cpp,v $
+ ** Revision 1.2  2000/11/05 07:21:11  pandur
+ ** implemented server socket
+ **
  ** Revision 1.1  2000/10/31 15:04:19  pandur
  ** more of few
  **
@@ -12,7 +15,10 @@
 
 #include "server.h"
 #include "debug.h"
+#include "connection.h"
 #include <posix/socket.h>
+#include <qsocketnotifier.h>
+#include <stdio.h>
 
 IServer::IServer(const char*ifc,uint32 port,Mode mode)
 {
@@ -25,7 +31,7 @@ IServer::IServer(const char*ifc,uint32 port,Mode mode)
         fd=socket(PF_INET,SOCK_STREAM,0);
         if(fd<0){
                 mDebug("IPC: can't create socket\n");
-                Error="can't create socket";
+                ierrno=errno;
                 return;
         }
         //bind it...
@@ -37,7 +43,7 @@ IServer::IServer(const char*ifc,uint32 port,Mode mode)
                 struct hostent *he=gethostbyname(ifc);
                 if(!he){
                         mDebug("IPC: can't resolve interface name %s.\n",ifc);
-                        Error="can't resolve interface name";
+                        ierrno=h_errno;
                         return;
                 }
                 memcpy(&sa.sin_addr,*(he->h_addr_list),he->h_length);
@@ -47,13 +53,13 @@ IServer::IServer(const char*ifc,uint32 port,Mode mode)
         }
         if(bind(fd,(sockaddr*)(&sa),sizeof(sa))){
                 mDebug("IPC: couldn't bind socket\n");
-                Error="couldn't bind socket";
+                ierrno=errno;
                 close(fd);fd=-1;
                 return;
         }
         if(listen(fd,1)){
                 mDebug("IPC: couldn't enter listen state\n");
-                Error="couldn't enter listen state";
+                ierrno=errno;
                 close(fd);fd=-1;
         }
         sn=new QSocketNotifier(fd,QSocketNotifier::Read);
@@ -66,4 +72,67 @@ IServer::~IServer()
         if(fd>=0)close(fd);
 }
 
+
+const char*IServer::interface()
+{
+        struct sockaddr_in sa;
+        socklen_t sl=sizeof(sa);
+        if(getsockname(fd,(sockaddr*)&sa,&sl)<0){
+                mDebug("IPC: error in retrieving socket addr: %s\n",strerror(errno));
+                ierrno=errno;
+                error(ierrno);
+                return 0;
+        }
+        uint32 ip;
+        memcpy(&ip,&sa.sin_addr,4);
+        ip=ntohl(ip);
+        static char s[17];
+        sprintf(s,"%li.%li.%li.%li",(ip>>24)&0xff,(ip>>16)&0xff,(ip>>8)&0xff,ip&0xff);
+        return s;
+}
+
+const char*IServer::interfaceName()
+{
+        struct sockaddr_in sa;
+        socklen_t sl=sizeof(sa);
+        if(getsockname(fd,(sockaddr*)&sa,&sl)<0){
+                mDebug("IPC: error in retrieving socket addr: %s\n",strerror(errno));
+                ierrno=errno;
+                error(ierrno);
+                return 0;
+        }
+        struct hostent *he=gethostbyaddr((char*)&sa.sin_addr,
+                			 sizeof(sa.sin_addr),AF_INET);
+        if(!he){
+                mDebug("IPC: error in resolving socket addr: %s\n",strerror(errno));
+                ierrno=h_errno;
+                error(ierrno);
+                return 0;
+        }
+        return he->h_name;
+}
+
+uint32 IServer::port()
+{
+        struct sockaddr_in sa;
+        socklen_t sl=sizeof(sa);
+        if(getsockname(fd,(sockaddr*)&sa,&sl)<0){
+                mDebug("IPC: error in retrieving socket addr: %s\n",strerror(errno));
+                ierrno=errno;
+                error(ierrno);
+                return 0;
+        }
+        return ntohs(sa.sin_port);
+}
+
+
+void IServer::accept()
+{
+        int nfd=::accept(fd,0,0);
+        if(nfd>=0)newConnection(new IConnection(nfd));
+        else {
+                ierrno=errno;
+                error(ierrno);
+        }
+}
 
