@@ -1,5 +1,7 @@
+#ifndef IPC_SOCKET_H
+#define IPC_SOCKET_H
 /*#*************************************************************************
- ** Socket abstraction $Revision: 1.2 $
+ ** Socket abstraction $Revision: 1.3 $
  ***************************************************************************
  ** (c) Konrad Rosenbaum, 2000
  ** protected by the GNU GPL version 2 or any newer
@@ -7,6 +9,9 @@
  ** History:
  **
  ** $Log: socket.h,v $
+ ** Revision 1.3  2000/10/29 14:37:10  pandur
+ ** handler moves into connection <-> everything is an object
+ **
  ** Revision 1.2  2000/09/24 16:22:24  pandur
  ** *** empty log message ***
  **
@@ -27,12 +32,13 @@ class ISocket:public QObject{
         Q_OBJECT
         
         public:
-          enum Mode {IPv4,IPv6,Local};
+          enum ConMode {IPv4,IPv6,Local};
+          enum Mode {Control,Data};
         
           /** attaches to an existing socket*/
-          ISocket(int fd);
+          ISocket(int fd,Mode mode=Control);
           /** attaches to an interface/port */
-          ISocket(const char*ifc,uint32 port,Mode mode=IPv4);
+          ISocket(const char*ifc,uint32 port=0,ConMode cmode=IPv4,Mode mode=Control);
         
           ~ISocket();
           
@@ -40,7 +46,8 @@ class ISocket:public QObject{
           bool readable();
           bool writeable();
           
-          void halfclose();
+          enum Side{None,Read,Write,Both};
+          void halfclose(Side which=Write);
           void close();
           
           bool setReadBuffer(int);
@@ -62,3 +69,6 @@ class ISocket:public QObject{
           State state;
           int sockfd;
 };
+
+
+#endif //IPC_SOCKET_H
