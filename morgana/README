@@ -1,0 +1,25 @@
+Pre-Release README for Morgana
+=================================
+
+
+Currently I'm working on cleaning up the source tree and preparing some of
+the sources for further development.
+
+You will find the prototype, which was the ground of my diploma thesis, at
+ftp://morgana.sourceforge.net/pub/morgana/diploma.tar.bz2 
+and some of the new sources at
+ftp://morgana.sourceforge.net/pub/morgana/current.tar.bz2
+Attention: the latter is very much incomplete and not able to run (I
+would even wonder if it compiles).
+
+The things I'll do till I check in may be found in the document manager of
+Morgana in the group "drafts".
+
+
+Target release date: end of september 2000.
+
+
+----
+Konrad Rosenbaum
+(pandur@users.sourceforge.net)
+
